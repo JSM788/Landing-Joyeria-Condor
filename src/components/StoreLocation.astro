@@ -1,0 +1,219 @@
+---
+import { siteConfig } from '../data/siteConfig';
+
+const ADDRESS = siteConfig.contact.address;
+const SCHEDULE = siteConfig.contact.schedule;
+const PHONE_DISPLAY = siteConfig.contact.phoneDisplay;
+const MAPS_QUERY = encodeURIComponent(siteConfig.contact.mapsQuery);
+---
+
+<section class="store reveal-section" id="tienda" aria-labelledby="store-heading">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Conoce nuestra tienda</p>
+      <h2 id="store-heading">Visítanos en Lima</h2>
+    </div>
+
+    <div class="store-grid">
+      <div class="store-photo">
+        <img
+          src="/images/fachada-tienda.jpg"
+          alt="Fachada y vitrina de CÓNDOR Joyería y Relojería en Galería Boza, Cercado de Lima"
+          loading="lazy"
+          width="800"
+          height="900"
+        />
+      </div>
+
+      <div class="store-map">
+        <iframe
+          title="Ubicación exacta de Joyería y Relojería Cóndor en Google Maps"
+          src={`https://www.google.com/maps?q=${MAPS_QUERY}&output=embed`}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="store-details">
+      <div class="detail">
+        <span class="detail-label">Dirección</span>
+        <span class="detail-value">{ADDRESS}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Horarios de atención</span>
+        <span class="detail-value">{SCHEDULE}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Teléfono / WhatsApp</span>
+        <span class="detail-value">
+          <a href="tel:+51991656962">+51 {PHONE_DISPLAY}</a>
+        </span>
+      </div>
+    </div>
+
+    <div class="store-cta">
+      <a
+        href={`https://www.google.com/maps/dir/?api=1&destination=${MAPS_QUERY}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary btn-pulse"
+      >
+        <span>Cómo llegar</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .store {
+    padding: var(--section-pad) 0;
+    background: var(--ivory);
+  }
+  .section-head {
+    margin-bottom: 3rem;
+    max-width: 560px;
+  }
+  .section-head h2 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    margin-top: 1rem;
+  }
+
+  .store-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.4rem;
+  }
+  .store-photo {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--carbon-soft);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(28, 26, 22, 0.12);
+    box-shadow: 0 4px 6px -1px rgba(20, 18, 15, 0.04), 0 16px 32px -4px rgba(20, 18, 15, 0.12);
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+  .store-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .store-photo:hover {
+    transform: translateY(-4px);
+    border-color: rgba(160, 124, 59, 0.4);
+    box-shadow: 0 8px 12px -2px rgba(20, 18, 15, 0.06), 0 24px 44px -6px rgba(20, 18, 15, 0.16);
+  }
+  .store-photo:hover img {
+    transform: scale(1.04);
+  }
+  .store-map {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(28, 26, 22, 0.12);
+    box-shadow: 0 4px 6px -1px rgba(20, 18, 15, 0.04), 0 16px 32px -4px rgba(20, 18, 15, 0.12);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+  .store-map:hover {
+    transform: translateY(-4px);
+    border-color: rgba(160, 124, 59, 0.4);
+    box-shadow: 0 8px 12px -2px rgba(20, 18, 15, 0.06), 0 24px 44px -6px rgba(20, 18, 15, 0.16);
+  }
+  .store-map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: grayscale(0.2) contrast(1.05);
+  }
+
+  /* Panel estructurado de información */
+  .store-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    background: var(--ivory-deep);
+    border: 1px solid rgba(28, 26, 22, 0.1);
+    border-radius: var(--radius-md);
+    padding: 1.8rem 2.2rem;
+    box-shadow: 0 4px 16px rgba(20, 18, 15, 0.04);
+    margin-bottom: 2.4rem;
+  }
+  .detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .detail-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .detail-value {
+    font-size: 0.96rem;
+    color: var(--ink);
+  }
+  .detail-value a:hover {
+    color: var(--gold);
+  }
+
+  .store-cta {
+    display: flex;
+  }
+
+  /* Botón con pulso dorado elegante */
+  .btn-pulse {
+    position: relative;
+    box-shadow: 0 0 0 0 rgba(160, 124, 59, 0.45);
+    animation: gold-pulse 2.8s infinite cubic-bezier(0.66, 0, 0, 1);
+  }
+
+  .btn-pulse:hover {
+    animation: none;
+    box-shadow: 0 8px 24px rgba(160, 124, 59, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .btn-pulse span:last-child {
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+  .btn-pulse:hover span:last-child {
+    transform: translateX(4px);
+  }
+
+  @keyframes gold-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(160, 124, 59, 0.45);
+    }
+    70% {
+      box-shadow: 0 0 0 12px rgba(160, 124, 59, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(160, 124, 59, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-pulse {
+      animation: none !important;
+    }
+  }
+
+  @media (max-width: 780px) {
+    .store-grid {
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
+    }
+    .store-details {
+      grid-template-columns: 1fr;
+      padding: 1.4rem 1.6rem;
+      gap: 1.3rem;
+    }
+  }
+</style>

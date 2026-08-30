@@ -1,0 +1,260 @@
+---
+const reviews = [
+  {
+    name: 'Marco Injoque',
+    tag: 'Servicio de Taller',
+    rating: 5,
+    text: 'Llevé un reloj de mi abuelo que llevaba años sin funcionar y quedó como nuevo. Trato honesto y explican todo al detalle.',
+  },
+  {
+    name: 'Carolina Vega',
+    tag: 'Cliente de Joyería',
+    rating: 5,
+    text: 'Compré un anillo solitario y la atención fue impecable. Se nota el oficio y la dedicación en cada detalle.',
+  },
+  {
+    name: 'Renzo Salinas',
+    tag: 'Mantenimiento de Reloj',
+    rating: 5,
+    text: 'Cambio de batería y sellado hermético al instante. La mejor relojería tradicional del Jirón de la Unión.',
+  },
+  {
+    name: 'Patricia Morales',
+    tag: 'Restauración',
+    rating: 5,
+    text: 'Excelente trabajo en el pulido de mi reloj de oro. El acabado quedó de fábrica y la atención fue de primera.',
+  },
+  {
+    name: 'Diego Benavides',
+    tag: 'Servicio Especializado',
+    rating: 5,
+    text: 'Pocos lugares en Lima tienen relojeros tan capacitados para piezas automáticas suizas. 100% recomendados.',
+  },
+];
+---
+
+<section class="reviews reveal-section" aria-labelledby="reviews-heading">
+  <div class="container">
+    <div class="section-head centered">
+      <p class="eyebrow">Opiniones</p>
+      <h2 id="reviews-heading">Lo que dicen nuestros clientes</h2>
+    </div>
+  </div>
+
+  <div class="marquee-wrapper" aria-label="Carrusel continuo de opiniones">
+    <div class="marquee-track">
+      <!-- Grupo 1 -->
+      <div class="marquee-group">
+        {reviews.map((r) => (
+          <article class="review-card" role="listitem">
+            <div class="card-header">
+              <div class="stars" aria-label={`Calificación: ${r.rating} de 5 estrellas`}>
+                <span aria-hidden="true">★★★★★</span>
+              </div>
+              <span class="google-badge">Google 5.0</span>
+            </div>
+            <p class="review-text">“{r.text}”</p>
+            <div class="review-author">
+              <span class="review-name">{r.name}</span>
+              <span class="review-tag">{r.tag}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Grupo 2: Duplicado idéntico para loop infinito 100% fluido -->
+      <div class="marquee-group" aria-hidden="true">
+        {reviews.map((r) => (
+          <article class="review-card" role="listitem">
+            <div class="card-header">
+              <div class="stars" aria-label={`Calificación: ${r.rating} de 5 estrellas`}>
+                <span aria-hidden="true">★★★★★</span>
+              </div>
+              <span class="google-badge">Google 5.0</span>
+            </div>
+            <p class="review-text">“{r.text}”</p>
+            <div class="review-author">
+              <span class="review-name">{r.name}</span>
+              <span class="review-tag">{r.tag}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="reviews-footer">
+      <a
+        href="https://www.google.com/maps/search/?api=1&query=Condor+Joyeria+Relojeria+Jiron+de+la+Union+Lima"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="reviews-link"
+      >
+        Ver todas nuestras reseñas en Google Maps →
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews {
+    padding: var(--section-pad) 0;
+    background: var(--ivory);
+    overflow: hidden;
+  }
+  .section-head.centered {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 3rem;
+  }
+  .section-head h2 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    margin-top: 1rem;
+  }
+
+  /* Contenedor del carrusel con difuminado suave en extremos */
+  .marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0 2.5rem;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    user-select: none;
+  }
+
+  .marquee-group {
+    display: flex;
+    gap: 2rem;
+    padding-right: 2rem; /* El padding empata el gap entre el grupo 1 y 2 */
+    flex-shrink: 0;
+    animation: marquee-slide 34s linear infinite;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+
+  /* Pausa interactiva al poner el cursor */
+  .marquee-wrapper:hover .marquee-group {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-slide {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-100%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-group {
+      animation: none;
+    }
+    .marquee-track {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+  }
+
+  .review-card {
+    border: 1px solid var(--line-on-light);
+    background: var(--ivory);
+    padding: 2.2rem;
+    width: 360px;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .review-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold);
+    box-shadow: 0 10px 30px rgba(20, 18, 15, 0.08);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .stars {
+    color: var(--gold);
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+  }
+
+  .google-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--stone);
+    background: rgba(28, 26, 22, 0.06);
+    padding: 0.25rem 0.55rem;
+    border-radius: 2px;
+  }
+
+  .review-text {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 1.6rem;
+    flex: 1;
+  }
+
+  .review-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    border-top: 1px solid var(--line-on-light);
+    padding-top: 1rem;
+  }
+
+  .review-name {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+
+  .review-tag {
+    font-size: 0.72rem;
+    color: var(--stone);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .reviews-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  .reviews-link {
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 1px solid var(--line-on-light);
+    padding-bottom: 2px;
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+
+  .reviews-link:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+</style>

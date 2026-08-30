@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Página no encontrada | CÓNDOR Joyería & Relojería">
+  <main class="not-found">
+    <div class="container">
+      <span class="eyebrow">Error 404</span>
+      <h1>Página no encontrada</h1>
+      <p>La página que buscas no existe o ha sido movida.</p>
+      <div class="cta-wrap">
+        <a href="/" class="btn btn-primary">Volver al inicio</a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .not-found {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 1.5rem;
+  }
+  .not-found h1 {
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    margin: 1rem 0 1.2rem;
+  }
+  .not-found p {
+    color: var(--stone);
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+  }
+  .cta-wrap {
+    display: flex;
+    justify-content: center;
+  }
+</style>

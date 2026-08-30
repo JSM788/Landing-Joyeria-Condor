@@ -1,0 +1,331 @@
+---
+import { siteConfig } from '../data/siteConfig';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${siteConfig.name} | Relojes de Alta Gama y Taller Especializado desde ${siteConfig.since}`,
+  description = siteConfig.description,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="geo.region" content="PE-LIM" />
+    <meta name="geo.placename" content="Lima" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL('/og-image.jpg', Astro.site)} />
+    <meta property="og:locale" content="es_PE" />
+    <meta property="og:url" content={canonicalURL} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/og-image.jpg', Astro.site)} />
+
+    <!-- Preconnect fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Schema.org JSON-LD — JewelryStore / LocalBusiness -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'JewelryStore',
+      name: siteConfig.name,
+      image: `${Astro.site}og-image.jpg`,
+      '@id': Astro.site,
+      url: Astro.site,
+      telephone: `+51${siteConfig.contact.whatsapp}`,
+      priceRange: 'S/ 50 - S/ 15000',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: siteConfig.contact.address,
+        addressLocality: 'Cercado de Lima',
+        addressRegion: 'Lima',
+        postalCode: '15001',
+        addressCountry: 'PE',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: siteConfig.contact.geo.lat,
+        longitude: siteConfig.contact.geo.lng,
+      },
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+          opens: '10:30',
+          closes: '19:30',
+        },
+      ],
+      sameAs: Object.values(siteConfig.social).filter(Boolean),
+      foundingDate: String(siteConfig.since),
+    })} />
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      // Observador nativo ultraligero para revelado suave al hacer scroll
+      const observerOptions = {
+        threshold: 0.08,
+        rootMargin: '0px 0px -30px 0px',
+      };
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal-section').forEach((el) => {
+        revealObserver.observe(el);
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  /* ============================================================
+     CÓNDOR — SISTEMA DE DISEÑO
+     Paleta: carbón / marfil / metálico / dorado apagado (acento)
+     Tipografía: Fraunces (display serif) + Work Sans (cuerpo/UI)
+     ============================================================ */
+  :root {
+    /* Color */
+    --carbon: #14120f;
+    --carbon-soft: #201d18;
+    --ivory: #efeae0;
+    --ivory-deep: #e4ddce;
+    --ink: #1c1a16;
+    --stone: #6b6559;
+    --stone-light: #a39c8c;
+    --gold: #a07c3b;
+    --gold-pale: #c7a968;
+    --line-on-light: rgba(28, 26, 22, 0.14);
+    --line-on-dark: rgba(239, 234, 224, 0.18);
+
+    /* Tipografía */
+    --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Ritmo */
+    --section-pad: clamp(4rem, 9vw, 8rem);
+    --gutter: clamp(1.5rem, 6vw, 6rem);
+    --max-width: 1320px;
+
+    /* Bordes redondeados elegantes */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-pill: 9999px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    margin: 0;
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  /* Divisor firma: índice de esfera — marcas tipo bisel de reloj.
+     Se usa como separador entre secciones a lo largo del sitio. */
+  .dial-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    height: 1px;
+  }
+  .dial-divider .tick {
+    width: 1px;
+    height: 10px;
+    background: var(--line-on-light);
+  }
+  .dial-divider .tick.major {
+    height: 16px;
+    background: var(--gold);
+    opacity: 0.55;
+  }
+  .dial-divider .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line-on-light);
+    max-width: 220px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.95rem 1.85rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    transition: all 0.25s ease;
+  }
+  .btn-primary {
+    background: var(--carbon);
+    color: var(--ivory);
+    border-color: var(--carbon);
+  }
+  .btn-primary:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--carbon);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line-on-light);
+  }
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .btn-outline-dark {
+    background: transparent;
+    color: var(--ivory);
+    border-color: var(--line-on-dark);
+  }
+  .btn-outline-dark:hover {
+    border-color: var(--gold-pale);
+    color: var(--gold-pale);
+  }
+
+  .btn:focus-visible,
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  /* Global Scroll Reveal */
+  .reveal-section {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-section {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+</style>

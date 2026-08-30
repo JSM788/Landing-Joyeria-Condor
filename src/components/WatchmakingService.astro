@@ -1,0 +1,203 @@
+---
+import { siteConfig } from '../data/siteConfig';
+
+const WHATSAPP_NUMBER = siteConfig.contact.whatsapp;
+const services = siteConfig.services;
+---
+
+<section class="service reveal-section" id="servicios" aria-labelledby="service-heading">
+  <div class="service-media">
+    <img
+      src="/images/taller-relojero.jpg"
+      alt="Maestro relojero de CÓNDOR trabajando con herramientas de precisión en el taller"
+      id="workshop-img"
+      loading="lazy"
+      width="900"
+      height="1100"
+    />
+  </div>
+
+  <div class="service-copy">
+    <div class="service-copy-inner">
+      <p class="eyebrow">Taller especializado</p>
+      <h2 id="service-heading">Taller técnico y servicio<br />especializado de relojería</h2>
+      <p class="service-lead">
+        Ochenta años de oficio artesanal respaldan cada intervención. Tu reloj
+        pasa por manos entrenadas, con herramientas de precisión y repuestos
+        de alta gama.
+      </p>
+
+      <ul class="service-list">
+        {services.map((s, i) => (
+          <li style={`--item-delay: ${i * 120 + 200}ms;`}>
+            <span class="service-name">{s}</span>
+          </li>
+        ))}
+      </ul>
+
+      <a
+        class="btn btn-primary"
+        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quisiera solicitar una cotización de taller para mi reloj.')}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Solicitar cotización de taller
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Parallax sutil en desktop con requestAnimationFrame (cero lag)
+  const img = document.getElementById('workshop-img');
+  const section = document.getElementById('servicios');
+
+  if (img && section && window.matchMedia('(min-width: 901px)').matches) {
+    let ticking = false;
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const rect = section.getBoundingClientRect();
+          const viewHeight = window.innerHeight;
+
+          if (rect.top < viewHeight && rect.bottom > 0) {
+            // Factor sutil de 0.06
+            const progress = (viewHeight - rect.top) / (viewHeight + rect.height);
+            const translateY = (progress - 0.5) * 35;
+            img.style.transform = `translate3d(0, ${translateY}px, 0) scale(1.08)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+</script>
+
+<style>
+  .service {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    background: var(--carbon-soft);
+    overflow: hidden;
+  }
+  .service-media {
+    position: relative;
+    min-height: 620px;
+    background: var(--carbon);
+    overflow: hidden;
+  }
+  .service-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .service-copy {
+    display: flex;
+    align-items: center;
+    padding: var(--section-pad) var(--gutter);
+  }
+  .service-copy-inner {
+    max-width: 560px;
+  }
+  .service h2 {
+    color: var(--ivory);
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    margin: 1.3rem 0 1.5rem;
+  }
+  .service-lead {
+    color: var(--stone-light);
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 460px;
+  }
+
+  .service-list {
+    list-style: none;
+    margin: 2.4rem 0 2.6rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+  }
+
+  /* Revelado en cascada */
+  .service-list li {
+    color: var(--ivory);
+    font-size: 0.96rem;
+    padding-left: 1.8rem;
+    position: relative;
+    border-bottom: 1px solid var(--line-on-dark);
+    padding-bottom: 0.95rem;
+    opacity: 0;
+    transform: translateX(-18px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+    transition-delay: var(--item-delay, 0ms);
+    will-change: opacity, transform;
+    cursor: default;
+  }
+
+  :global(.service.is-visible) .service-list li {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .service-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 8px;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease, background 0.3s ease;
+  }
+
+  /* Microinteracción en hover */
+  .service-list li:hover {
+    color: var(--ivory);
+  }
+  .service-list li:hover::before {
+    width: 14px;
+    background: var(--gold-pale);
+  }
+  .service-list li .service-name {
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+  .service-list li:hover .service-name {
+    transform: translateX(4px);
+  }
+
+  .service-list li:last-child {
+    border-bottom: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-list li {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .service {
+      grid-template-columns: 1fr;
+    }
+    .service-media {
+      min-height: 340px;
+    }
+    .service-copy {
+      padding-top: 3.5rem;
+      padding-bottom: 4rem;
+    }
+  }
+</style>

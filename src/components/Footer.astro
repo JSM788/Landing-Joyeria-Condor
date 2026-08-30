@@ -1,0 +1,119 @@
+---
+import BrandLogo from './BrandLogo.astro';
+import { siteConfig } from '../data/siteConfig';
+
+const year = new Date().getFullYear();
+const ADDRESS = siteConfig.contact.address;
+const PHONE = siteConfig.contact.phoneDisplay;
+const PHONE_RAW = siteConfig.contact.whatsapp;
+const FACEBOOK_URL = siteConfig.social.facebook;
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <BrandLogo variant="light" size="sm" />
+    </div>
+
+    <nav class="footer-social" aria-label="Redes sociales">
+      {FACEBOOK_URL && (
+        <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer">Facebook</a>
+      )}
+      {siteConfig.social.instagram && (
+        <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+      )}
+      {siteConfig.social.tiktok && (
+        <a href={siteConfig.social.tiktok} target="_blank" rel="noopener noreferrer">TikTok</a>
+      )}
+    </nav>
+
+    <div class="footer-contact">
+      <p>{ADDRESS}</p>
+      <p><a href={`tel:+${PHONE_RAW}`}>{PHONE}</a></p>
+    </div>
+
+    <p class="footer-copy">© {year} CÓNDOR Joyería &amp; Relojería. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--carbon);
+    color: var(--stone-light);
+    padding: 3.5rem 0 2.5rem;
+  }
+  .footer-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 2rem 3rem;
+    align-items: start;
+  }
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .logo-mark {
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    color: var(--gold-pale);
+    flex-shrink: 0;
+  }
+  .footer-name {
+    font-family: var(--font-display);
+    color: var(--ivory);
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    margin: 0;
+  }
+  .footer-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 2px 0 0;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1.6rem;
+    align-self: center;
+    font-size: 0.85rem;
+  }
+  .footer-social a:hover {
+    color: var(--gold-pale);
+  }
+
+  .footer-contact {
+    font-size: 0.85rem;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .footer-contact a:hover {
+    color: var(--gold-pale);
+  }
+
+  .footer-copy {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--line-on-dark);
+    padding-top: 1.8rem;
+    margin-top: 0.5rem;
+    font-size: 0.76rem;
+  }
+
+  @media (max-width: 780px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+    .footer-contact {
+      text-align: left;
+    }
+  }
+</style>

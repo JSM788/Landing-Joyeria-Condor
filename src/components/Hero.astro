@@ -1,0 +1,216 @@
+---
+import { siteConfig } from '../data/siteConfig';
+
+const WHATSAPP_NUMBER = siteConfig.contact.whatsapp;
+---
+
+<section class="hero" id="inicio">
+  <div class="hero-copy">
+    <div class="hero-copy-inner">
+      <p class="eyebrow fade-up" style="--delay: 100ms;">Joyería &amp; Relojería · Desde 1943</p>
+      <h1 class="fade-up" style="--delay: 250ms;">Elegancia, precisión<br />y tradición.</h1>
+      <p class="hero-sub fade-up" style="--delay: 400ms;">
+        Encuentra tu próximo reloj o joya exclusiva, o confía la reparación
+        y mantenimiento de tus piezas más preciadas a nuestro taller especializado.
+      </p>
+      <div class="hero-ctas fade-up" style="--delay: 550ms;">
+        <a href="#productos" class="btn btn-primary">Ver productos</a>
+        <a
+          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quisiera cotizar la reparación de mi reloj.')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-outline"
+        >
+          Reparar mi reloj
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual" role="img" aria-label="Mecanismo de alta precisión en taller CÓNDOR Joyería y Relojería">
+    <div class="hero-media-wrapper">
+      <video
+        class="hero-video"
+        autoplay
+        loop
+        muted
+        playsinline
+        poster="/images/hero-relojeria.jpg"
+      >
+        <source src="/images/hero-video.mp4" type="video/mp4" />
+      </video>
+      <img
+        src="/images/hero-relojeria.jpg"
+        alt="Mecanismo de alta precisión en taller CÓNDOR Joyería y Relojería"
+        class="hero-bg-img"
+        loading="eager"
+      />
+    </div>
+    <div class="hero-overlay"></div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100svh;
+    background: var(--carbon);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Animación de entrada escalonada para el texto */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(22px);
+    animation: heroFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  @keyframes heroFadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-copy {
+    display: flex;
+    align-items: center;
+    padding: clamp(6rem, 10vw, 4rem) var(--gutter);
+    z-index: 2;
+  }
+  .hero-copy-inner {
+    max-width: 560px;
+  }
+  .hero-copy .eyebrow {
+    margin-bottom: 1.6rem;
+  }
+  .hero h1 {
+    color: var(--ivory);
+    font-size: clamp(2.6rem, 5.4vw, 4.4rem);
+    font-weight: 500;
+  }
+  .hero-sub {
+    color: var(--stone-light);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 460px;
+    margin-top: 1.8rem;
+  }
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.8rem;
+  }
+  .hero-ctas .btn-outline {
+    color: var(--ivory);
+    border-color: var(--line-on-dark);
+  }
+  .hero-ctas .btn-outline:hover {
+    border-color: var(--gold-pale);
+    color: var(--gold-pale);
+  }
+
+  .hero-visual {
+    position: relative;
+    background: var(--carbon);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-media-wrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+    z-index: 1;
+  }
+  /* Si no hay video cargado, la imagen de fondo toma protagonismo con efecto Ken-Burns */
+  .hero-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.82;
+    filter: brightness(0.92) contrast(1.1);
+    transform: scale(1.02);
+    animation: kenBurns 22s ease-in-out infinite alternate;
+    will-change: transform;
+    z-index: 0;
+  }
+
+  @keyframes kenBurns {
+    0% {
+      transform: scale(1.02) translate(0, 0);
+    }
+    50% {
+      transform: scale(1.09) translate(-1.5%, 1%);
+    }
+    100% {
+      transform: scale(1.04) translate(1%, -1.5%);
+    }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(20, 18, 15, 0.95) 0%,
+      rgba(20, 18, 15, 0.4) 40%,
+      rgba(20, 18, 15, 0.2) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    .hero-bg-img {
+      animation: none !important;
+    }
+  }
+
+  @media (max-width: 880px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-copy {
+      order: 2;
+      padding-top: 3.5rem;
+      padding-bottom: 4rem;
+    }
+    .hero-visual {
+      order: 1;
+      height: 52vh;
+      min-height: 340px;
+    }
+    .hero-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(20, 18, 15, 0.95) 0%,
+        rgba(20, 18, 15, 0.3) 60%,
+        transparent 100%
+      );
+    }
+  }
+</style>

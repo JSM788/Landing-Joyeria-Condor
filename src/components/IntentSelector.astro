@@ -1,0 +1,236 @@
+---
+const items = [
+  {
+    n: '01',
+    title: 'Relojes',
+    copy: 'Descubre nuestra colección de relojes de alta gama.',
+    cta: 'Explorar colección',
+    href: '#productos',
+    img: '/images/producto-reloj-1.jpg',
+  },
+  {
+    n: '02',
+    title: 'Joyería',
+    copy: 'Encuentra piezas de autor para cada ocasión.',
+    cta: 'Ver joyería',
+    href: '#productos',
+    img: '/images/producto-joya-1.jpg',
+  },
+  {
+    n: '03',
+    title: 'Servicios',
+    copy: 'Reparación, mantenimiento y calibración de relojes.',
+    cta: 'Conocer el taller',
+    href: '#servicios',
+    img: '/images/taller-relojero.jpg',
+  },
+];
+---
+
+<section class="intent reveal-section" aria-labelledby="intent-heading">
+  <div class="container">
+    <h2 id="intent-heading" class="sr-only">¿Qué estás buscando?</h2>
+    <p class="eyebrow intent-eyebrow">¿Qué estás buscando?</p>
+
+    <div class="intent-grid">
+      {items.map((item, i) => (
+        <a class="intent-card" href={item.href} style={`--card-delay: ${i * 120}ms;`}>
+          <div class="card-bg">
+            <img src={item.img} alt={item.title} loading="lazy" />
+            <div class="card-overlay"></div>
+          </div>
+          <div class="card-content">
+            <span class="intent-n">{item.n}</span>
+            <h3>{item.title}</h3>
+            <p>{item.copy}</p>
+            <span class="intent-cta">
+              <span class="cta-text">{item.cta}</span>
+              <span class="cta-arrow" aria-hidden="true">→</span>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .intent {
+    padding: var(--section-pad) 0;
+    background: var(--ivory);
+  }
+  .intent-eyebrow {
+    display: block;
+    margin-bottom: 2.5rem;
+  }
+
+  .intent-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.8rem;
+  }
+
+  /* Tarjeta interactiva con bordes redondeados */
+  .intent-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--carbon);
+    color: var(--ivory);
+    min-height: 320px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2.6rem 2.2rem;
+    border: 1px solid rgba(28, 26, 22, 0.1);
+    box-shadow: 0 4px 16px rgba(20, 18, 15, 0.04);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+    transition-delay: var(--card-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  :global(.intent.is-visible) .intent-card {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .intent-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    box-shadow: 0 16px 36px rgba(20, 18, 15, 0.18);
+  }
+
+  /* Imagen de fondo con zoom suave */
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .card-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+    filter: grayscale(0.2) contrast(1.1);
+    transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  }
+  .intent-card:hover .card-bg img {
+    transform: scale(1.08);
+    opacity: 0.48;
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(20, 18, 15, 0.94) 0%,
+      rgba(20, 18, 15, 0.75) 50%,
+      rgba(20, 18, 15, 0.45) 100%
+    );
+    transition: background 0.4s ease;
+  }
+  .intent-card:hover .card-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(20, 18, 15, 0.96) 0%,
+      rgba(20, 18, 15, 0.65) 50%,
+      rgba(20, 18, 15, 0.35) 100%
+    );
+  }
+
+  /* Contenido sobre la tarjeta */
+  .card-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Número dorado iluminado */
+  .intent-n {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    transition: color 0.35s ease, text-shadow 0.35s ease, transform 0.35s ease;
+    display: inline-block;
+  }
+  .intent-card:hover .intent-n {
+    color: var(--gold-pale);
+    text-shadow: 0 0 14px rgba(199, 169, 104, 0.6);
+    transform: translateY(-2px);
+  }
+
+  .card-content h3 {
+    color: var(--ivory);
+    font-size: 1.65rem;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .card-content p {
+    color: var(--stone-light);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin-bottom: 1.6rem;
+    max-width: 280px;
+  }
+
+  .intent-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--gold-pale);
+    border-bottom: 1px solid rgba(199, 169, 104, 0.3);
+    padding-bottom: 3px;
+    align-self: flex-start;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+  .intent-card:hover .intent-cta {
+    color: var(--ivory);
+    border-color: var(--gold);
+  }
+
+  .cta-arrow {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-block;
+  }
+  .intent-card:hover .cta-arrow {
+    transform: translateX(6px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intent-card {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .intent-grid {
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
+    }
+    .intent-card {
+      min-height: 260px;
+      padding: 2rem 1.6rem;
+    }
+  }
+</style>

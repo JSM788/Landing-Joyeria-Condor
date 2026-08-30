@@ -1,0 +1,108 @@
+---
+const pillars = [
+  {
+    n: '01',
+    title: 'Experiencia',
+    copy: 'Trayectoria y oficio artesanal desde 1943, transmitido entre generaciones.',
+  },
+  {
+    n: '02',
+    title: 'Calidad',
+    copy: 'Metales nobles, piezas genuinas y repuestos de alta gama en cada trabajo.',
+  },
+  {
+    n: '03',
+    title: 'Atención personalizada',
+    copy: 'Trato directo, honesto y asesoría a la medida de cada cliente.',
+  },
+  {
+    n: '04',
+    title: 'Garantía',
+    copy: 'Respaldo y garantía formal en cada venta o reparación realizada.',
+  },
+];
+---
+
+<section class="why reveal-section" id="nosotros" aria-labelledby="why-heading">
+  <div class="container">
+    <div class="dial-divider" aria-hidden="true">
+      <span class="rule"></span>
+      <span class="tick major"></span>
+      <span class="tick"></span>
+      <span class="tick"></span>
+      <span class="tick major"></span>
+      <span class="rule"></span>
+    </div>
+
+    <div class="section-head centered">
+      <p class="eyebrow">Por qué elegirnos</p>
+      <h2 id="why-heading">Ocho décadas de confianza</h2>
+    </div>
+
+    <div class="pillars">
+      {pillars.map((p) => (
+        <div class="pillar">
+          <span class="pillar-n">{p.n}</span>
+          <h3>{p.title}</h3>
+          <p>{p.copy}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why {
+    padding: var(--section-pad) 0;
+    background: var(--ivory-deep);
+  }
+  .dial-divider {
+    margin-bottom: var(--section-pad);
+  }
+  .section-head.centered {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 3.8rem;
+  }
+  .section-head h2 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    margin-top: 1rem;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+  }
+  .pillar {
+    text-align: left;
+  }
+  .pillar-n {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--gold);
+    margin-bottom: 1.1rem;
+  }
+  .pillar h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+  .pillar p {
+    color: var(--stone);
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 780px) {
+    .pillars {
+      grid-template-columns: 1fr 1fr;
+      gap: 2.2rem 1.6rem;
+    }
+  }
+  @media (max-width: 480px) {
+    .pillars {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
