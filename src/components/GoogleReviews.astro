@@ -46,7 +46,7 @@ const reviews = [
       <!-- Grupo 1 -->
       <div class="marquee-group">
         {reviews.map((r) => (
-          <article class="review-card" role="listitem">
+          <article class="review-card">
             <div class="card-header">
               <div class="stars" aria-label={`Calificación: ${r.rating} de 5 estrellas`}>
                 <span aria-hidden="true">★★★★★</span>
@@ -65,7 +65,7 @@ const reviews = [
       <!-- Grupo 2: Duplicado idéntico para loop infinito 100% fluido -->
       <div class="marquee-group" aria-hidden="true">
         {reviews.map((r) => (
-          <article class="review-card" role="listitem">
+          <article class="review-card">
             <div class="card-header">
               <div class="stars" aria-label={`Calificación: ${r.rating} de 5 estrellas`}>
                 <span aria-hidden="true">★★★★★</span>
