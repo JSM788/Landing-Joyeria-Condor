@@ -140,9 +140,11 @@ const reviews = [
     backface-visibility: hidden;
   }
 
-  /* Pausa interactiva al poner el cursor */
-  .marquee-wrapper:hover .marquee-group {
-    animation-play-state: paused;
+  /* Pausa interactiva SOLO en dispositivos con mouse real (evita que se congele en táctil/móviles) */
+  @media (hover: hover) {
+    .marquee-wrapper:hover .marquee-group {
+      animation-play-state: paused;
+    }
   }
 
   @keyframes marquee-slide {
@@ -167,14 +169,26 @@ const reviews = [
   .review-card {
     border: 1px solid var(--line-on-light);
     background: var(--ivory);
-    padding: 2.2rem;
-    width: 360px;
+    padding: 2rem 1.8rem;
+    width: 350px;
     border-radius: var(--radius-md);
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  @media (max-width: 600px) {
+    .marquee-group {
+      animation-duration: 25s;
+      gap: 1.2rem;
+      padding-right: 1.2rem;
+    }
+    .review-card {
+      width: 290px;
+      padding: 1.6rem 1.4rem;
+    }
   }
 
   .review-card:hover {
