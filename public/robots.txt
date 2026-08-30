@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://landing-joyeria-condor.netlify.app/sitemap-index.xml
-Sitemap: https://condorjoyeria.pe/sitemap-index.xml
+Sitemap: https://joyeria-relojeria-condor.netlify.app/sitemap-index.xml
