@@ -18,11 +18,12 @@ const MAPS_QUERY = encodeURIComponent(siteConfig.contact.mapsQuery);
       <div class="store-photo">
         <img
           src="/images/fachada-tienda.jpg"
-          alt="Fachada y vitrina de CÓNDOR Joyería y Relojería en Galería Boza, Cercado de Lima"
+          alt="Ingreso a Galería Boza en Jr. de la Unión 853, sede de CÓNDOR Joyería y Relojería"
           loading="lazy"
           width="800"
           height="900"
         />
+        <div class="store-photo-tint" aria-hidden="true"></div>
       </div>
 
       <div class="store-map">
@@ -100,7 +101,8 @@ const MAPS_QUERY = encodeURIComponent(siteConfig.contact.mapsQuery);
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: sepia(0.18) saturate(0.95) contrast(1.08) brightness(0.97);
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
   }
   .store-photo:hover {
     transform: translateY(-4px);
@@ -109,6 +111,13 @@ const MAPS_QUERY = encodeURIComponent(siteConfig.contact.mapsQuery);
   }
   .store-photo:hover img {
     transform: scale(1.04);
+    filter: sepia(0.08) saturate(1) contrast(1.08) brightness(1);
+  }
+  .store-photo-tint {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(20, 18, 15, 0.25) 0%, transparent 60%);
+    pointer-events: none;
   }
   .store-map {
     aspect-ratio: 4 / 3;
@@ -127,7 +136,11 @@ const MAPS_QUERY = encodeURIComponent(siteConfig.contact.mapsQuery);
     width: 100%;
     height: 100%;
     border: 0;
-    filter: grayscale(0.2) contrast(1.05);
+    filter: grayscale(0.6) sepia(0.35) hue-rotate(-15deg) contrast(1.05) brightness(0.98);
+    transition: filter 0.4s ease;
+  }
+  .store-map:hover iframe {
+    filter: grayscale(0.35) sepia(0.2) hue-rotate(-10deg) contrast(1.05) brightness(1);
   }
 
   /* Panel estructurado de información */
