@@ -41,14 +41,14 @@ const reviews = [
     </div>
   </div>
 
-  <div class="marquee-wrapper" aria-label="Carrusel continuo de opiniones">
+  <div class="marquee-wrapper" role="region" aria-label="Carrusel continuo de opiniones">
     <div class="marquee-track">
       <!-- Grupo 1 -->
       <div class="marquee-group">
         {reviews.map((r) => (
           <article class="review-card">
             <div class="card-header">
-              <div class="stars" aria-label={`Calificación: ${r.rating} de 5 estrellas`}>
+              <div class="stars" role="img" aria-label={`Calificación: ${r.rating} de 5 estrellas`}>
                 <span aria-hidden="true">★★★★★</span>
               </div>
               <span class="google-badge">Google 5.0</span>
@@ -67,7 +67,7 @@ const reviews = [
         {reviews.map((r) => (
           <article class="review-card">
             <div class="card-header">
-              <div class="stars" aria-label={`Calificación: ${r.rating} de 5 estrellas`}>
+              <div class="stars" role="img" aria-label={`Calificación: ${r.rating} de 5 estrellas`}>
                 <span aria-hidden="true">★★★★★</span>
               </div>
               <span class="google-badge">Google 5.0</span>
