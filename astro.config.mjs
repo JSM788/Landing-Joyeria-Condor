@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 // (ej. https://condorjoyeria.pe). Es obligatorio para que el sitemap
 // y las URLs canónicas se generen correctamente.
 export default defineConfig({
-  site: 'https://condorjoyeria.pe',
+  site: process.env.URL || 'https://landing-joyeria-condor.netlify.app',
   integrations: [sitemap()],
   compressHTML: true,
 });

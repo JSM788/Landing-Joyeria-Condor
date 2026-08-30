@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'CÓNDOR Joyería & Relojería',
   shortName: 'CÓNDOR',
   slogan: 'Elegancia, precisión y tradición.',
-  description: 'Joyería y relojería CÓNDOR en Lima: venta de relojes y joyas de alta gama, y taller especializado en reparación, mantenimiento y cambio de batería. Confianza y oficio artesanal desde 1943.',
+  description: 'Joyería y relojería CÓNDOR en Lima. Venta de joyas, relojes de alta gama y taller especializado de mantenimiento y reparación. Tradición desde 1943.',
   since: 1943,
   
   contact: {
