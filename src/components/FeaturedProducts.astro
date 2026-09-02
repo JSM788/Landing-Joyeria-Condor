@@ -65,13 +65,23 @@ const waLink = (name: string) =>
     gap: 2.4rem;
   }
 
-  /* Revelado escalonado progresivo */
+  /* Tarjeta de producto limpia sin marcos artificiales */
   .product-card {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
     transition-delay: var(--stagger-delay, 0ms);
     will-change: opacity, transform;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
   }
 
   :global(.products.is-visible) .product-card {
@@ -96,20 +106,22 @@ const waLink = (name: string) =>
     border-radius: var(--radius-md);
     border: none;
     box-shadow: 
-      0 10px 25px -4px rgba(28, 24, 18, 0.15),
-      0 4px 10px rgba(28, 24, 18, 0.08);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+      0 16px 40px rgba(28, 20, 10, 0.22),
+      0 0 25px rgba(28, 20, 10, 0.12),
+      0 4px 12px rgba(28, 20, 10, 0.08);
+    transition: box-shadow 0.4s ease;
   }
   .product-card:hover .product-image {
-    transform: translateY(-4px);
     box-shadow: 
-      0 16px 36px -4px rgba(28, 24, 18, 0.22),
-      0 6px 14px rgba(28, 24, 18, 0.12);
+      0 22px 50px rgba(28, 20, 10, 0.30),
+      0 0 35px rgba(28, 20, 10, 0.16),
+      0 6px 16px rgba(28, 20, 10, 0.10);
   }
   .product-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
     transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .product-card:hover .product-image img {
